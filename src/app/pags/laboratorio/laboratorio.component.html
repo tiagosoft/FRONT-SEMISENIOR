@@ -1,0 +1,59 @@
+<p>{{fecha}}</p>
+<p>Registrar ordenes</p>
+<form [formGroup]="ordenForm" (ngSubmit)="guardarOrden()">
+
+  <div class="col-lg-6 form-group mb-3" style="margin-bottom: 20px;">
+    <span class="input-group">Pacientes</span>
+    <select class="form-select campo-select" (change)="ChangePaciente($event)" >
+      <option value="" disabled selected>Seleccione paciente</option>
+      <option [value]="pac.id" *ngFor="let pac of pacientes">
+        {{ pac.nombre }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-lg-6 form-group mb-3" style="margin-bottom: 20px;">
+    <span class="input-group">Examenes</span>
+    <select class="form-select campo-select" (change)="ChangeExamen($event)" >
+      <option value="" disabled selected>Seleccione Examen</option>
+      <option [value]="exm.id" *ngFor="let exm of examenes">
+        {{ exm.nombre }}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Guardar Orden</button>
+
+
+  <p>Ordenes de laboratorio</p>
+
+  <table mat-table [dataSource]="ordenes" class="mat-elevation-z8" style="width: 100%;">
+
+  <ng-container matColumnDef="Orden">
+    <th mat-header-cell *matHeaderCellDef> orden </th>
+    <td mat-cell *matCellDef="let orden"> {{orden.id}} </td>
+  </ng-container>
+
+    <ng-container matColumnDef="Fecha">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let orden"> {{orden.fecha}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="idPaciente">
+    <th mat-header-cell *matHeaderCellDef> idPaciente </th>
+    <td mat-cell *matCellDef="let orden"> {{orden.idPaciente}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="idExamen">
+    <th mat-header-cell *matHeaderCellDef> idExamen </th>
+    <td mat-cell *matCellDef="let orden"> {{orden.idExamen}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+
+</form>
